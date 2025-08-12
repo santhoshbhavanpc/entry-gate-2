@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vehicle Info Confirmation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      margin: 0;
+      background: #fff;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:active {
+      background-color: #0056b3;
+    }
+
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .modal {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 8px;
+      max-width: 350px;
+      width: 90%;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .modal h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    .modal p {
+      white-space: pre-line; /* preserve line breaks */
+      margin-bottom: 25px;
+      font-size: 16px;
+      color: #333;
+    }
+    .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .modal-buttons button {
+      flex: 1;
+      padding: 10px 0;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    .modal-buttons .reenter-btn {
+      background-color: #ccc;
+      color: #333;
+    }
+    .modal-buttons .reenter-btn:hover {
+      background-color: #aaa;
+    }
+    .modal-buttons .confirm-btn {
+      background-color: #007bff;
+      color: white;
+    }
+    .modal-buttons .confirm-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="vehicleForm">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required placeholder="Enter your name" />
+
+    <label for="vehicleNo">Vehicle Number</label>
+    <input type="text" id="vehicleNo" name="vehicleNo" required placeholder="Enter vehicle number" />
+
+    <label for="mobilePhone">Mobile Phone</label>
+    <input type="tel" id="mobilePhone" name="mobilePhone" required placeholder="Enter mobile phone" pattern="[0-9]{10}" title="10-digit mobile number" />
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Modal Popup -->
+  <div class="modal-overlay" id="confirmationModal">
+    <div class="modal">
+      <h2>Please Confirm your details</h2>
+      <p id="modalText"></p>
+      <div class="modal-buttons">
+        <button type="button" class="reenter-btn" id="reenterBtn">Re-enter</button>
+        <button type="button" class="confirm-btn" id="confirmBtn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const form = document.getElementById('vehicleForm');
+  const modal = document.getElementById('confirmationModal');
+  const modalText = document.getElementById('modalText');
+  const reenterBtn = document.getElementById('reenterBtn');
+  const confirmBtn = document.getElementById('confirmBtn');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Prepare the details text with line breaks
+    const details = 
+      `Name: ${form.name.value.trim()}\n` +
+      `Vehicle Number: ${form.vehicleNo.value.trim()}\n` +
+      `Mobile Phone: ${form.mobilePhone.value.trim()}`;
+
+    // Set modal text and show modal
+    modalText.textContent = details;
+    modal.style.display = 'flex';
+  });
+
+  reenterBtn.addEventListener('click', () => {
+    modal.style.display = 'none'; // close modal and let user edit
+  });
+
+  confirmBtn.addEventListener('click', () => {
+    // Redirect to YouTube on confirm
+    window.location.href = 'https://www.wikipedia.org/';
+  });
+
+  // Optional: close modal if clicked outside modal box
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>
